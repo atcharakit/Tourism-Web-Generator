@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>นครปฐม | เมืองเจดีย์ใหญ่ ทรงเสน่ห์ใกล้กรุงเทพฯ</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Kanit & Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'Kanit', 'sans-serif'],
+                        heading: ['Kanit', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                        },
+                        emeraldCustom: {
+                            600: '#059669',
+                            700: '#047857',
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 10px 30px -10px rgba(217, 119, 6, 0.3)',
+                        'card-hover': '0 20px 40px -15px rgba(0, 0, 0, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Animations for Hero Fade and Scroll Reveal */
+        @keyframes fadeInSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 35px rgba(245, 158, 11, 0.8);
+            }
+        }
+
+        .animate-hero-title {
+            animation: fadeInSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-hero-sub {
+            animation: fadeInSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            opacity: 0;
+        }
+
+        .animate-hero-btn {
+            animation: fadeInSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+            opacity: 0;
+        }
+
+        .pulse-button {
+            animation: pulseGlow 3s infinite;
+        }
+
+        /* Scroll Reveal Utility Classes controlled by Intersection Observer JS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism Navigation Styling */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-slate-900">
+
+    <!-- Sticky Glassmorphic Header -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-600 to-gold-400 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-gopuram text-slate-900 text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold tracking-wide text-white font-heading group-hover:text-gold-400 transition-colors">NAKHON PATHOM</span>
+                        <span class="text-xs text-gold-400 tracking-widest uppercase font-light">มรดกทวารวดี เมืองน่าเที่ยว</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#hero" class="text-slate-300 hover:text-gold-400 transition-colors py-2 border-b-2 border-transparent hover:border-gold-400">หน้าแรก</a>
+                    <a href="#attractions" class="text-slate-300 hover:text-gold-400 transition-colors py-2 border-b-2 border-transparent hover:border-gold-400">สถานที่ท่องเที่ยว</a>
+                    <a href="#highlight" class="text-slate-300 hover:text-gold-400 transition-colors py-2 border-b-2 border-transparent hover:border-gold-400">ไฮไลท์วัฒนธรรม</a>
+                    <a href="#itinerary" class="text-slate-300 hover:text-gold-400 transition-colors py-2 border-b-2 border-transparent hover:border-gold-400">วางแผนเที่ยว 1 วัน</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="#attractions" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-slate-900 font-semibold px-5 py-2.5 rounded-full text-sm shadow-glow transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-compass mr-2"></i>สำรวจเลย
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" type="button" class="text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none" aria-label="Toggle Navigation Menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="mobile-link block py-2 px-3 text-slate-200 hover:bg-slate-800 rounded-lg">หน้าแรก</a>
+            <a href="#attractions" class="mobile-link block py-2 px-3 text-slate-200 hover:bg-slate-800 rounded-lg">สถานที่ท่องเที่ยว</a>
+            <a href="#highlight" class="mobile-link block py-2 px-3 text-slate-200 hover:bg-slate-800 rounded-lg">ไฮไลท์วัฒนธรรม</a>
+            <a href="#itinerary" class="mobile-link block py-2 px-3 text-slate-200 hover:bg-slate-800 rounded-lg">วางแผนเที่ยว 1 วัน</a>
+            <a href="#attractions" class="mobile-link block text-center bg-gold-500 text-slate-900 font-semibold py-2.5 rounded-lg">สำรวจเลย</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Hero Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=1920&auto=format&fit=crop" 
+                 alt="พระปฐมเจดีย์ นครปฐม" 
+                 class="w-full h-full object-cover object-center transform scale-105 filter brightness-75 transition-transform duration-10000 hover:scale-100"
+                 onerror="this.src='https://placehold.co/1920x1080/1e293b/fbbf24?text=Nakhon+Pathom'">
+            <!-- Gradient Overlay for Contrast -->
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-slate-900/40"></div>
+            <div class="absolute inset-0 bg-radial-gradient from-transparent via-slate-900/30 to-slate-900"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <div class="inline-flex items-center space-x-2 bg-gold-500/20 border border-gold-500/40 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
+                <span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+                <span class="text-gold-300 text-xs sm:text-sm font-medium tracking-wide">จุดหมายปลายทางยอดนิยม ใกล้กรุงเทพฯ เพียง 56 กม.</span>
+            </div>
+
+            <!-- Title Animation -->
+            <h1 class="animate-hero-title text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight font-heading leading-tight mb-6">
+                มนต์เสน่ห์เมืองเจดีย์ใหญ่<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-amber-500">
+                    นครปฐม
+                </span>
+            </h1>
+
+            <!-- Subtitle Animation -->
+            <p class="animate-hero-sub text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed mb-10">
+                สัมผัสอารยธรรมโบราณตระการตา ไหว้พระเสริมสิริมงคล ชิมของอร่อยริมน้ำดอนหวาย และเช็กอินคาเฟ่สุดชิลล์ในบรรยากาศร่มรื่น
+            </p>
+
+            <!-- Action Buttons Animation -->
+            <div class="animate-hero-btn flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#attractions" class="pulse-button w-full sm:w-auto bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-slate-950 font-bold px-8 py-4 rounded-full text-lg transition-all transform hover:-translate-y-1 shadow-glow flex items-center justify-center group">
+                    <span>เริ่มต้นออกเดินทาง</span>
+                    <i class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#highlight" class="w-full sm:w-auto bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 border border-slate-600/80 backdrop-blur-md font-semibold px-8 py-4 rounded-full text-lg transition-all hover:border-gold-400/60 flex items-center justify-center">
+                    <i class="fa-solid fa-circle-info mr-2 text-gold-400"></i>ข้อมูลไฮไลท์
+                </a>
+            </div>
+
+            <!-- Quick Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-8 border-t border-slate-700/50 max-w-4xl mx-auto text-left">
+                <div class="bg-slate-800/40 backdrop-blur-sm p-4 rounded-2xl border border-slate-700/40">
+                    <div class="text-gold-400 text-2xl sm:text-3xl font-bold font-heading">120.45 ม.</div>
+                    <div class="text-xs text-slate-400 mt-1">องค์พระปฐมเจดีย์สูงที่สุดในไทย</div>
+                </div>
+                <div class="bg-slate-800/40 backdrop-blur-sm p-4 rounded-2xl border border-slate-700/40">
+                    <div class="text-gold-400 text-2xl sm:text-3xl font-bold font-heading">1,000+ ปี</div>
+                    <div class="text-xs text-slate-400 mt-1">ศูนย์กลางอารยธรรมทวารวดี</div>
+                </div>
+                <div class="bg-slate-800/40 backdrop-blur-sm p-4 rounded-2xl border border-slate-700/40">
+                    <div class="text-gold-400 text-2xl sm:text-3xl font-bold font-heading">1 ชม.</div>
+                    <div class="text-xs text-slate-400 mt-1">เดินทางสะดวกจากกรุงเทพฯ</div>
+                </div>
+                <div class="bg-slate-800/40 backdrop-blur-sm p-4 rounded-2xl border border-slate-700/40">
+                    <div class="text-gold-400 text-2xl sm:text-3xl font-bold font-heading">50+ ร้าน</div>
+                    <div class="text-xs text-slate-400 mt-1">คาเฟ่และตลาดน้ำยอดนิยม</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 text-center hidden md:block">
+            <a href="#attractions" class="text-slate-400 hover:text-gold-400 transition-colors flex flex-col items-center">
+                <span class="text-xs tracking-widest uppercase mb-2">เลื่อนลงเพื่อดูเพิ่มเติม</span>
+                <i class="fa-solid fa-chevron-down animate-bounce text-gold-400"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Featured Attractions Section -->
+    <section id="attractions" class="py-24 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-gold-400 font-semibold tracking-wider uppercase text-sm">Explore Top Destinations</span>
+                <h2 class="text-3xl sm:text-5xl font-bold font-heading text-white mt-2 mb-4">สถานที่ท่องเที่ยวยอดฮิต</h2>
+                <p class="text-slate-400 text-base sm:text-lg">
+                    คัดสรร 6 พิกัดยอดนิยมของนครปฐม ครบทั้งสายบุญ สายกิน สายธรรมชาติ และสายถ่ายรูป
+                </p>
+
+                <!-- Filter Category Buttons -->
+                <div class="flex flex-wrap justify-center gap-2 mt-8" id="filter-buttons">
+                    <button class="filter-btn active px-5 py-2 rounded-full text-sm font-medium transition-all bg-gold-500 text-slate-950 shadow-md" data-filter="all">
+                        ทั้งหมด
+                    </button>
+                    <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white" data-filter="temple">
+                        <i class="fa-solid fa-vihara mr-1.5"></i>วัด & วัฒนธรรม
+                    </button>
+                    <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white" data-filter="market">
+                        <i class="fa-solid fa-store mr-1.5"></i>ตลาดน้ำ & อาหาร
+                    </button>
+                    <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white" data-filter="nature">
+                        <i class="fa-solid fa-leaf mr-1.5"></i>ธรรมชาติ & คาเฟ่
+                    </button>
+                </div>
+            </div>
+
+            <!-- Attractions Card Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="attractions-grid">
+
+                <!-- Card 1: Phra Pathommachedai -->
+                <div class="attraction-card reveal group bg-slate-800/80 rounded-3xl overflow-hidden border border-slate-700/60 shadow-lg hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 flex flex-col" data-category="temple">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=800&auto=format&fit=crop" 
+                             alt="องค์พระปฐมเจดีย์" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/fbbf24?text=Phra+Pathommachedai'">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-gold-500/90 text-slate-950 text-xs font-bold px-3 py-1.5 rounded-full uppercase backdrop-blur-md shadow-md">
+                                พิกัดห้ามพลาด
+                            </span>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-star mr-1"></i> 4.9 (2,450 รีวิว)
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-gold-400 font-medium mb-2">
+                                <i class="fa-solid fa-location-dot mr-1.5"></i> อ.เมืองนครปฐม
+                            </div>
+                            <h3 class="text-xl font-bold font-heading text-white group-hover:text-gold-400 transition-colors mb-3">
+                                องค์พระปฐมเจดีย์
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                                ปูชนียสถานสำคัญคู่บ้านคู่เมือง เป็นพระเจดีย์ทรงลังกาที่ใหญ่และสูงที่สุดในประเทศไทย ประดิษฐานพระบรมสารีริกธาตุอันเป็นที่เคารพบูชา
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i> เปิด 06.00 - 19.00 น.</span>
+                            <button onclick="openModal('องค์พระปฐมเจดีย์', 'ปูชนียสถานสำคัญคู่บ้านคู่เมืองนครปฐม มีประวัติศาสตร์ยาวนานนับพันปี พระเจดีย์องค์ปัจจุบันเป็นพระมหาเจดีย์ครอบพระเจดีย์องค์เดิมไว้ ภายในประดิษฐานพระบรมสารีริกธาตุ และพระพุทธรูปสำคัญ เช่น พระร่วงโรจนฤทธิ์', 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=800&auto=format&fit=crop', 'อ.เมืองนครปฐม (ใกล้นครปฐมไนท์บาซาร์)')" class="text-xs text-gold-400 hover:text-gold-300 font-semibold flex items-center">
+                                รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Sanam Chandra Palace -->
+                <div class="attraction-card reveal group bg-slate-800/80 rounded-3xl overflow-hidden border border-slate-700/60 shadow-lg hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 flex flex-col" data-category="temple">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://images.unsplash.com/photo-1590059201511-3729e205626a?q=80&w=800&auto=format&fit=crop" 
+                             alt="พระราชวังสนามจันทร์" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/fbbf24?text=Sanam+Chandra+Palace'">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-slate-900/80 text-gold-400 border border-gold-400/40 text-xs font-bold px-3 py-1.5 rounded-full uppercase backdrop-blur-md">
+                                พระราชวังงาม
+                            </span>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-star mr-1"></i> 4.8 (1,820 รีวิว)
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-gold-400 font-medium mb-2">
+                                <i class="fa-solid fa-location-dot mr-1.5"></i> อ.เมืองนครปฐม
+                            </div>
+                            <h3 class="text-xl font-bold font-heading text-white group-hover:text-gold-400 transition-colors mb-3">
+                                พระราชวังสนามจันทร์
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                                พระราชวังอันทรงคุณค่าที่สร้างขึ้นในรัชสมัยพระบาทสมเด็จพระมงกุฎเกล้าเจ้าอยู่หัว (รัชกาลที่ 6) โดดเด่นด้วยพระตำหนักชาลีมงคลอาสน์สไตล์ตะวันตก
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i> เปิด 05.00 - 19.00 น.</span>
+                            <button onclick="openModal('พระราชวังสนามจันทร์', 'พระราชวังร่มรื่นด้วยต้นไม้ใหญ่น้อย มีพระตำหนักสวยงามหลายแห่ง เช่น พระตำหนักชาลีมงคลอาสน์ สถาปัตยกรรมสไตล์เรอเนซองส์ผสมผสานฮาล์ฟทิมเบอร์ของอังกฤษ และอนุสาวรีย์ย่าเหล สุนัขทรงเลี้ยง', 'https://images.unsplash.com/photo-1590059201511-3729e205626a?q=80&w=800&auto=format&fit=crop', 'ถนนราชดำเนิน อ.เมืองนครปฐม')" class="text-xs text-gold-400 hover:text-gold-300 font-semibold flex items-center">
+                                รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Don Wai Floating Market -->
+                <div class="attraction-card reveal group bg-slate-800/80 rounded-3xl overflow-hidden border border-slate-700/60 shadow-lg hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 flex flex-col" data-category="market">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop" 
+                             alt="ตลาดน้ำวัดดอนหวาย" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/fbbf24?text=Don+Wai+Floating+Market'">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase shadow-md">
+                                สวรรค์นักชิม
+                            </span>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-star mr-1"></i> 4.7 (3,100 รีวิว)
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-gold-400 font-medium mb-2">
+                                <i class="fa-solid fa-location-dot mr-1.5"></i> อ.สามพราน
+                            </div>
+                            <h3 class="text-xl font-bold font-heading text-white group-hover:text-gold-400 transition-colors mb-3">
+                                ตลาดน้ำวัดดอนหวาย
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                                ตลาดโบราณริมแม่น้ำท่าจีน ขึ้นชื่อเรื่องอาหารอร่อย ของกินโบราณ เป็ดพะโล้นายหนับ ขนมไทยโบราณ และบริการนั่งเรือชมวิวริมน้ำ
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i> เปิด 07.00 - 18.00 น.</span>
+                            <button onclick="openModal('ตลาดน้ำวัดดอนหวาย', 'ตลาดโบราณริมแม่น้ำท่าจีนที่มีมาตั้งแต่สมัยรัชกาลที่ 6 อุดมไปด้วยสินค้าเกษตร อาหารพื้นบ้าน เป็ดพะโล้ ปลาตะเพียนต้มเค็ม ขนมต้ม และยังมีเรือบริการนำเที่ยวชมทัศนียภาพสองฝั่งแม่น้ำ', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop', 'วัดดอนหวาย อ.สามพราน')" class="text-xs text-gold-400 hover:text-gold-300 font-semibold flex items-center">
+                                รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Wat Sam Phran (Dragon Temple) -->
+                <div class="attraction-card reveal group bg-slate-800/80 rounded-3xl overflow-hidden border border-slate-700/60 shadow-lg hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 flex flex-col" data-category="temple">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=800&auto=format&fit=crop" 
+                             alt="วัดสามพราน (วัดมังกร)" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/fbbf24?text=Wat+Sam+Phran'">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-rose-600 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase shadow-md">
+                                Unseen Thailand
+                            </span>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-star mr-1"></i> 4.8 (1,290 รีวิว)
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-gold-400 font-medium mb-2">
+                                <i class="fa-solid fa-location-dot mr-1.5"></i> อ.สามพราน
+                            </div>
+                            <h3 class="text-xl font-bold font-heading text-white group-hover:text-gold-400 transition-colors mb-3">
+                                วัดสามพราน (ตึกมังกร)
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                                ตึกสีชมพูสูง 80 เมตร ที่มีมังกรยักษ์โอบล้อมรอบอาคาร 17 ชั้น สามารถเดินทะลุตัวมังกรขึ้นไปยังยอดตึกเพื่อชมทิวทัศน์แบบ 360 องศา
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i> เปิด 08.00 - 17.30 น.</span>
+                            <button onclick="openModal('วัดสามพราน (ตึกมังกร)', 'วัดที่มีความโดดเด่นทางสถาปัตยกรรมด้วยอาคารสีชมพูทรงกลมสูง 80 เมตร มีรูปปั้นมังกรยักษ์ตะกายรอบตัวตึก ภายในลำตัวมังกรทำเป็นทางเดินอุโมงค์ขึ้นสู่จุดชมวิวบนยอดตึก', 'https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=800&auto=format&fit=crop', 'อ.สามพราน นครปฐม')" class="text-xs text-gold-400 hover:text-gold-300 font-semibold flex items-center">
+                                รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Red Lotus Floating Market Bang Len -->
+                <div class="attraction-card reveal group bg-slate-800/80 rounded-3xl overflow-hidden border border-slate-700/60 shadow-lg hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 flex flex-col" data-category="nature">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=800&auto=format&fit=crop" 
+                             alt="ทุ่งบัวแดง บางเลน" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/fbbf24?text=Red+Lotus+Market'">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase shadow-md">
+                                ถ่ายรูปมุมโดรน
+                            </span>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-star mr-1"></i> 4.6 (950 รีวิว)
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-gold-400 font-medium mb-2">
+                                <i class="fa-solid fa-location-dot mr-1.5"></i> อ.บางเลน
+                            </div>
+                            <h3 class="text-xl font-bold font-heading text-white group-hover:text-gold-400 transition-colors mb-3">
+                                ตลาดน้ำทุ่งบัวแดง บางเลน
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                                บึงบัวแดงขนาดใหญ่พร้อมบริการพายเรือถ่ายภาพมุมสูงด้วยโดรน สัมผัสธรรมชาติพร้อมร้านอาหาร คาเฟ่ริมบึงบัวตลอดวัน
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i> เปิด 08.00 - 18.00 น.</span>
+                            <button onclick="openModal('ตลาดน้ำทุ่งบัวแดง บางเลน', 'สถานที่ท่องเที่ยวเชิงธรรมชาติ บึงบัวแดงบานสะพรั่งตลอดทั้งปี ไฮไลท์คือนั่งเรือพายชมบัวอย่างใกล้ชิด และบริการถ่ายภาพโดรนมุมสูง ได้ภาพสวยไม่เหมือนใคร', 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=800&auto=format&fit=crop', 'อ.บางเลน นครปฐม')" class="text-xs text-gold-400 hover:text-gold-300 font-semibold flex items-center">
+                                รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Riverside Cafe Scene -->
+                <div class="attraction-card reveal group bg-slate-800/80 rounded-3xl overflow-hidden border border-slate-700/60 shadow-lg hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2 flex flex-col" data-category="nature">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop" 
+                             alt="คาเฟ่ร่มรื่นริมคลอง" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/fbbf24?text=Riverside+Cafe'">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase shadow-md">
+                                สายคาเฟ่ต้องชอบ
+                            </span>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-star mr-1"></i> 4.9 (1,540 รีวิว)
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-gold-400 font-medium mb-2">
+                                <i class="fa-solid fa-location-dot mr-1.5"></i> อ.สามพราน / อ.พุทธมณฑล
+                            </div>
+                            <h3 class="text-xl font-bold font-heading text-white group-hover:text-gold-400 transition-colors mb-3">
+                                คาเฟ่ในสวน & ริมน้ำนครปฐม
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                                เมืองแห่งคาเฟ่ดีไซน์สวยท่ามกลางสวนมะพร้าว สวนผลไม้ และร่องน้ำธรรมชาติ เช่น Memory House, After the Rain, Little Tree Garden
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700/50 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i> เปิด 08.30 - 18.30 น.</span>
+                            <button onclick="openModal('คาเฟ่ในสวน & ริมน้ำนครปฐม', 'สัมผัสประสบการณ์จิบกาแฟ พายเรือชิลล์ๆ ในร่องสวนผลไม้ บรรยากาศเงียบสงบ ร่มรื่น เหมาะสำหรับการพักผ่อนวันหยุดใกล้กรุงเทพฯ', 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop', 'กระจายอยู่ทั่วสามพราน พุทธมณฑล และนครชัยศรี')" class="text-xs text-gold-400 hover:text-gold-300 font-semibold flex items-center">
+                                รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Cultural Highlight Spotlight Section -->
+    <section id="highlight" class="py-20 bg-slate-950 relative overflow-hidden">
+        <!-- Background Pattern Decor -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left Image Spotlight -->
+                <div class="reveal relative rounded-3xl overflow-hidden shadow-2xl border border-gold-500/30 group">
+                    <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Phra Pathommachedai Landmark" 
+                         class="w-full h-[480px] object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <span class="bg-gold-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-full uppercase">มรดกโลกทางวัฒนธรรมแห่งทวารวดี</span>
+                        <h3 class="text-2xl font-bold font-heading text-white mt-2">ประเพณีห่มผ้าพระปฐมเจดีย์</h3>
+                        <p class="text-xs text-slate-300 mt-1">งานเทศกาลนมัสการพระปฐมเจดีย์จัดขึ้นเป็นประจำทุกปีในวันเพ็ญเดือน 12</p>
+                    </div>
+                </div>
+
+                <!-- Right Information Content -->
+                <div class="reveal space-y-6">
+                    <div>
+                        <span class="text-gold-400 font-semibold tracking-wider uppercase text-sm">Historical & Cultural Roots</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-white mt-2">
+                            สัมผัสรากเหง้าอารยธรรม<br/>
+                            <span class="text-gold-400">ศูนย์กลางแห่งประวัติศาสตร์ไทย</span>
+                        </h2>
+                    </div>
+
+                    <p class="text-slate-300 leading-relaxed font-light">
+                        นครปฐม ถือเป็นเมืองโบราณที่มีประวัติศาสตร์เก่าแก่ที่สุดแห่งหนึ่งในประเทศไทย เคยเป็นราชธานีสำคัญในสมัยทวารวดี (พุทธศตวรรษที่ 11–16) และเป็นจุดแรกเริ่มที่พระพุทธศาสนาเผยแผ่เข้ามาในดินแดนสุวรรณภูมิ
+                    </p>
+
+                    <!-- Feature List -->
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
+                            <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-bowl-rice text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold font-heading">อาหารเด็ดประจำจังหวัด</h4>
+                                <p class="text-slate-400 text-sm">ข้าวหมูแดงนครปฐม เป็ดพะโล้ ส้มโอขวัญนคร และกุ้งอบภูเขาไฟ</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
+                            <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-route text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold font-heading">เดินทางง่าย หลากหลายเส้นทาง</h4>
+                                <p class="text-slate-400 text-sm">เดินทางได้ทั้งรถยนต์ส่วนตัว รถตู้โดยสารประจำทาง หรือนั่งรถไฟชิลล์ๆ จากกรุงเทพฯ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a href="#itinerary" class="inline-flex items-center text-gold-400 hover:text-gold-300 font-semibold text-sm group">
+                            <span>ดูแผนการท่องเที่ยวแนะนำ</span>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Itinerary Planner Widget -->
+    <section id="itinerary" class="py-24 bg-slate-900 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+                <span class="text-gold-400 font-semibold tracking-wider uppercase text-sm">One-Day Trip Ideas</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-heading text-white mt-2">วางแผนเที่ยว 1 วันในนครปฐม</h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-2">เลือกสไตล์ทริปที่เหมาะกับคุณเพื่อเริ่มต้นวันหยุดอย่างคุ้มค่า</p>
+            </div>
+
+            <!-- Interactive Itinerary Tabs -->
+            <div class="reveal bg-slate-800/80 rounded-3xl p-6 sm:p-8 border border-slate-700/80 shadow-xl">
+                <!-- Tab Buttons -->
+                <div class="flex flex-wrap border-b border-slate-700 pb-4 gap-2 justify-center sm:justify-start">
+                    <button onclick="switchTab('merit')" id="tab-merit" class="itinerary-tab px-5 py-2.5 rounded-xl font-semibold text-sm transition-all bg-gold-500 text-slate-950">
+                        <i class="fa-solid fa-hands-praying mr-2"></i>สายบุญ-ประวัติศาสตร์
+                    </button>
+                    <button onclick="switchTab('food')" id="tab-food" class="itinerary-tab px-5 py-2.5 rounded-xl font-semibold text-sm transition-all text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-utensils mr-2"></i>สายกิน-ตลาดน้ำ
+                    </button>
+                    <button onclick="switchTab('cafe')" id="tab-cafe" class="itinerary-tab px-5 py-2.5 rounded-xl font-semibold text-sm transition-all text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-camera mr-2"></i>สายถ่ายรูป-คาเฟ่
+                    </button>
+                </div>
+
+                <!-- Tab Content Pane: Merit -->
+                <div id="content-merit" class="itinerary-content pt-6 space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-gold-500/20 text-gold-400 border border-gold-500/40 font-bold px-3 py-1 rounded-lg text-sm">08:30 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">กราบสักการะองค์พระปฐมเจดีย์ & พระร่วงโรจนฤทธิ์</h4>
+                            <p class="text-slate-400 text-sm mt-1">เริ่มต้นเช้าวันใหม่เสริมสิริมงคล เดินเวียนเทียนรอบองค์พระเจดีย์ใหญ่</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-gold-500/20 text-gold-400 border border-gold-500/40 font-bold px-3 py-1 rounded-lg text-sm">11:30 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">ทานข้าวหมูแดงนครปฐมร้านดังใกล้องค์พระ</h4>
+                            <p class="text-slate-400 text-sm mt-1">ลิ้มลองหมูแดง หมูกรอบ นุ่มละมุนพร้อมน้ำราดสูตรโบราณเข้มข้น</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-gold-500/20 text-gold-400 border border-gold-500/40 font-bold px-3 py-1 rounded-lg text-sm">13:30 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">ชมสถาปัตยกรรม ณ พระราชวังสนามจันทร์</h4>
+                            <p class="text-slate-400 text-sm mt-1">เดินเล่นรับลมในสวนร่มรื่น และถ่ายภาพพระตำหนักชาลีมงคลอาสน์</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-gold-500/20 text-gold-400 border border-gold-500/40 font-bold px-3 py-1 rounded-lg text-sm">16:00 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">แวะวัดสามพราน ชมความอลังการของตึกมังกร</h4>
+                            <p class="text-slate-400 text-sm mt-1">ชมประติมากรรมมังกรยักษ์และกราบพระพุทธรูปเพื่อความเป็นสิริมงคลก่อนกลับ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content Pane: Food -->
+                <div id="content-food" class="itinerary-content pt-6 space-y-6 hidden">
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold px-3 py-1 rounded-lg text-sm">09:00 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">ช้อปของกินอร่อย ณ ตลาดน้ำวัดดอนหวาย</h4>
+                            <p class="text-slate-400 text-sm mt-1">จัดเต็มเป็ดพะโล้ ขนมไทย ต้มเค็มปลา และของฝากสดๆ จากชาวบ้าน</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold px-3 py-1 rounded-lg text-sm">12:00 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">นั่งเรือท่องเที่ยวล่องแม่น้ำท่าจีน</h4>
+                            <p class="text-slate-400 text-sm mt-1">สัมผัสวิถีชีวิตชุมชนริมน้ำ ลมพัดเย็นสบายตลอดเส้นทาง</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold px-3 py-1 rounded-lg text-sm">15:00 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">ลิ้มลองกุ้งอบภูเขาไฟ เมนูเด็ดสามพราน</h4>
+                            <p class="text-slate-400 text-sm mt-1">ตื่นตากับการจุดไฟครอบภูเขาไฟ กุ้งสดตัวโตเนื้อเด้งน้ำจิ้มแซ่บ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content Pane: Cafe -->
+                <div id="content-cafe" class="itinerary-content pt-6 space-y-6 hidden">
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold px-3 py-1 rounded-lg text-sm">10:00 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">เช็กอินตลาดน้ำทุ่งบัวแดง ถ่ายรูปโดรนสุดปัง</h4>
+                            <p class="text-slate-400 text-sm mt-1">ลงเรือพายชมดอกบัว พร้อมรับรูปถ่ายโดรนมุมสูงสวยๆ กลับบ้าน</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold px-3 py-1 rounded-lg text-sm">13:00 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">พายเรือจิบเครื่องดื่มในสวนผลไม้</h4>
+                            <p class="text-slate-400 text-sm mt-1">แวะคาเฟ่สไตล์ร่องสวน จิบกาแฟสด และพายเรือท้องแบนเล่นชิลล์ๆ</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold px-3 py-1 rounded-lg text-sm">16:30 น.</span>
+                        <div>
+                            <h4 class="text-white font-semibold">ชมพระอาทิตย์ตกดิน ณ คาเฟ่ริมแม่น้ำนครชัยศรี</h4>
+                            <p class="text-slate-400 text-sm mt-1">ปิดท้ายวันด้วยเค้กอร่อยๆ และบรรยากาศยามเย็นริมแม่น้ำสุดโรแมนติก</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Place Details -->
+    <div id="detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-700/80 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="modal-box">
+            <div class="relative h-56">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="closeModal()" class="absolute top-4 right-4 bg-slate-900/80 text-white hover:text-gold-400 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition-colors" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="text-xs text-gold-400 font-medium mb-1" id="modal-location"></div>
+                <h3 class="text-2xl font-bold font-heading text-white mb-3" id="modal-title"></h3>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6" id="modal-desc"></p>
+                <div class="flex justify-end">
+                    <button onclick="closeModal()" class="bg-gold-500 hover:bg-gold-400 text-slate-950 font-semibold px-6 py-2.5 rounded-full text-sm transition-colors">
+                        ตกลง / ปิดหน้าต่าง
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <!-- Brand Info -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gold-500 flex items-center justify-center text-slate-900 font-bold">
+                        <i class="fa-solid fa-gopuram"></i>
+                    </div>
+                    <div>
+                        <span class="text-lg font-bold font-heading text-white">Nakhon Pathom Travel Guide</span>
+                        <p class="text-xs text-slate-500">คู่มือท่องเที่ยวจังหวัดนครปฐมฉบับสมบูรณ์</p>
+                    </div>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-gold-400 hover:border-gold-400 transition-colors" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-gold-400 hover:border-gold-400 transition-colors" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-gold-400 hover:border-gold-400 transition-colors" aria-label="TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-gold-400 hover:border-gold-400 transition-colors" aria-label="YouTube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-slate-900 text-xs text-center text-slate-600">
+                <p>&copy; 2026 Tourism Nakhon Pathom. Created for travel showcase and educational purpose.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Reveal Observer Setup
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: unobserve once revealed
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.15,
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const attractionCards = document.querySelectorAll('.attraction-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active state from all buttons
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-gold-500', 'text-slate-950');
+                        b.classList.add('bg-slate-800', 'text-slate-300');
+                    });
+
+                    // Add active state to clicked button
+                    btn.classList.add('active', 'bg-gold-500', 'text-slate-950');
+                    btn.classList.remove('bg-slate-800', 'text-slate-300');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    attractionCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'flex';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        });
+
+        function switchTab(tabKey) {
+            const tabs = ['merit', 'food', 'cafe'];
+            
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const content = document.getElementById(`content-${t}`);
+                
+                if (t === tabKey) {
+                    btn.className = "itinerary-tab px-5 py-2.5 rounded-xl font-semibold text-sm transition-all bg-gold-500 text-slate-950";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "itinerary-tab px-5 py-2.5 rounded-xl font-semibold text-sm transition-all text-slate-400 hover:text-white";
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        function openModal(title, desc, imgSrc, location) {
+            const modal = document.getElementById('detail-modal');
+            const modalBox = document.getElementById('modal-box');
+            
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-location').innerHTML = `<i class="fa-solid fa-location-dot mr-1"></i> ${location}`;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalBox.classList.remove('scale-95');
+            modalBox.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('detail-modal');
+            const modalBox = document.getElementById('modal-box');
+
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+    </script>
+</body>
+</html>
